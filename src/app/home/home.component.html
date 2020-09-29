@@ -5,46 +5,61 @@
      fxLayoutAlign.gt-md="space-around center"
      fxLayoutGap="10px">
 
-<mat-card *ngIf="dish" fxFlex>
-  <mat-card-header>
-    <div mat-card-avatar></div>
-    <mat-card-title>
-      <h3>{{dish.name | uppercase}}</h3>
-    </mat-card-title>
-  </mat-card-header>
-  <img mat-card-image src={{dish.image}} alt={{dish.name}}>
-  <mat-card-content>
-    <p>{{dish.description}}
-    </p>
-  </mat-card-content>
-</mat-card>
+  <mat-card *ngIf="dish" fxFlex>
+    <mat-card-header>
+      <div mat-card-avatar></div>
+      <mat-card-title>
+        <h3>{{dish.name | uppercase}}</h3>
+      </mat-card-title>
+    </mat-card-header>
+    <img mat-card-image src={{dish.image}} alt={{dish.name}}>
+    <mat-card-content>
+      <p>{{dish.description}}
+      </p>
+    </mat-card-content>
+  </mat-card>
+  <div fxFlex [hidden]="dish">
+    <mat-spinner>
+      <h4>Loading . . . Please Wait</h4>
+    </mat-spinner>
+  </div>
 
-<mat-card *ngIf="promotion" fxFlex>
-  <mat-card-header>
-    <div mat-card-avatar></div>
-    <mat-card-title>
-      <h3>{{promotion.name | uppercase}}</h3>
-    </mat-card-title>
-  </mat-card-header>
-  <img mat-card-image src={{promotion.image}} alt={{promotion.name}}>
-  <mat-card-content>
-    <p>{{promotion.description}}
-    </p>
-  </mat-card-content>
-</mat-card>
+  <mat-card *ngIf="promotion" fxFlex>
+    <mat-card-header>
+      <div mat-card-avatar></div>
+      <mat-card-title>
+        <h3>{{promotion.name | uppercase}}</h3>
+      </mat-card-title>
+    </mat-card-header>
+    <img mat-card-image src={{promotion.image}} alt={{promotion.name}}>
+    <mat-card-content>
+      <p>{{promotion.description}}
+      </p>
+    </mat-card-content>
+  </mat-card>
 
-<mat-card *ngIf="contact" fxFlex>
-  <mat-card-header>
-    <div mat-card-avatar></div>
-    <mat-card-title>
-      <h3>{{contact.name | uppercase}} {{contact.abbr}}</h3>
-    </mat-card-title>
-  </mat-card-header>
-  <img mat-card-image src={{contact.image}} alt={{contact.name}}>
-  <mat-card-content>
-    <h3><i>{{contact.designation}}</i></h3>
-    <p>{{contact.description}}</p>
-  </mat-card-content>
-</mat-card>
+  <div fxFlex [hidden]="promotion">
+    <mat-spinner>
+      <h4>Loading . . . Please Wait</h4>
+    </mat-spinner>
+  </div>
 
+  <mat-card *ngIf="contact" fxFlex>
+    <mat-card-header>
+      <div mat-card-avatar></div>
+      <mat-card-title>
+        <h3>{{contact.name | uppercase}} {{contact.abbr}}</h3>
+      </mat-card-title>
+    </mat-card-header>
+    <img mat-card-image src={{contact.image}} alt={{contact.name}}>
+    <mat-card-content>
+      <h3><i>{{contact.designation}}</i></h3>
+      <p>{{contact.description}}</p>
+    </mat-card-content>
+  </mat-card>
+  <div fxFlex [hidden]="contact">
+    <mat-spinner>
+      <h4>Loading . . . Please Wait</h4>
+    </mat-spinner>
+  </div>
 </div>
