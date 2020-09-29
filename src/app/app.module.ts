@@ -26,8 +26,8 @@ import { DishService } from './services/dish.service';
 import { PromotionService } from './services/promotion.service';
 import {LeaderService} from './services/leader.service';
 import { LoginComponent } from './login/login.component';
-import { MatCheckbox, MatCheckboxModule, MatDialogModule, MatFormField, MatFormFieldModule, MatInputModule } from '@angular/material';
-import { FormsModule } from '@angular/forms';
+import { MatCheckbox, MatCheckboxModule, MatDialogModule, MatFormField, MatFormFieldModule, MatInputModule, MatSelectModule, MatSlideToggleModule } from '@angular/material';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -56,7 +56,10 @@ import { FormsModule } from '@angular/forms';
     MatFormFieldModule,
     MatInputModule,
     MatCheckboxModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    MatSelectModule,
+    MatSlideToggleModule
   ],
   entryComponents:[
     LoginComponent
