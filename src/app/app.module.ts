@@ -28,7 +28,12 @@ import {LeaderService} from './services/leader.service';
 import { LoginComponent } from './login/login.component';
 import { MatCheckbox, MatCheckboxModule, MatDialogModule, MatFormField, MatFormFieldModule, MatInputModule, MatProgressSpinnerModule, MatSelectModule, MatSlider, MatSliderModule, MatSlideToggleModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { filter } from 'rxjs/operators';
+import { HttpClientModule } from '@angular/common/http';
+import {baseURL} from './share/baseurl';
+import { HttpModule } from '@angular/http';
+import {ProcessFTTPMsgService} from './services/process-fttpmsg.service';
+ 
 
 @NgModule({
   declarations: [
@@ -61,14 +66,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatSelectModule,
     MatSlideToggleModule,
     MatProgressSpinnerModule,
-    MatSliderModule
+    MatSliderModule,
+    HttpClientModule,
+    HttpModule
   ],
   entryComponents:[
     LoginComponent
   ],
   providers: [DishService,
     PromotionService,
-    LeaderService
+    LeaderService,
+    {provide: 'baseURL', useValue: baseURL},
+    ProcessFTTPMsgService
   ],
   bootstrap: [AppComponent]
 })
