@@ -7,6 +7,9 @@ import { switchMap } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Comment } from '../share/comment';
 import {MatSlider, MatSliderModule} from '@angular/material/slider';
+import { Observable } from 'rxjs';
+import { HttpHeaders } from '@angular/common/http';
+import { runInThisContext } from 'vm';
 
 @Component({
   selector: 'app-dishdetail',
@@ -21,6 +24,7 @@ export class DishdetailComponent implements OnInit {
   next: string;
   slider: MatSlider;
   errMsg: string;
+  dishCopy: Dish;
 
   feedbackForm: FormGroup;
   comment: Comment;
@@ -47,31 +51,17 @@ export class DishdetailComponent implements OnInit {
     private location: Location,
     private route: ActivatedRoute,
     private fb: FormBuilder,
-    @Inject('baseURL') private BaseURL) 
+    @Inject('baseURL') private BaseURL)
     {  
       this.createForm();
     }
 
-    createForm(){
-      this.feedbackForm = this.fb.group({
-        author: ['', [Validators.required , Validators.minLength(2), Validators.maxLength(25)] ],
-        rating: [5],
-        comment: ['', Validators.required],
-        date: ['']
-      });
-  
-      this.feedbackForm.valueChanges
-       .subscribe(data => this.onValueChanged(data));
-      
-       this.onValueChanged();
-    }
-
-  ngOnInit() {
-    this.dishService.getDishIds().subscribe(dishIds => this.dishIds = dishIds);
-      this.route.params.pipe(switchMap((params: Params) => this.dishService.getDish(params['id'])))
-      .subscribe(dish => { this.dish = dish; this.setPrevNext(dish.id);},
-        errmess => this.errMsg = <any>errmess);
-    }
+    ngOnInit() {
+      this.dishService.getDishIds().subscribe(dishIds => this.dishIds = dishIds);
+        this.route.params.pipe(switchMap((params: Params) => this.dishService.getDish(params['id'])))
+        .subscribe(dish => { this.dish = dish; this.dishCopy =dish; this.setPrevNext(dish.id);},
+          errmess => this.errMsg = <any>errmess);
+      }
 
     setPrevNext(dishId: string) {
       const index = this.dishIds.indexOf(dishId);
@@ -79,10 +69,24 @@ export class DishdetailComponent implements OnInit {
       this.next = this.dishIds[(this.dishIds.length + index + 1) % this.dishIds.length];
     }
 
-  goBack(): void {
-    this.location.back();
-  }
+    goBack(): void {
+      this.location.back();
+    }
 
+  createForm(){
+    this.feedbackForm = this.fb.group({
+      author: ['', [Validators.required , Validators.minLength(2), Validators.maxLength(25)] ],
+      rating: [5],
+      comment: ['', Validators.required],
+      date: ['']
+    });
+
+    this.feedbackForm.valueChanges
+     .subscribe(data => this.onValueChanged(data));
+    
+     this.onValueChanged();
+  }
+  
   onValueChanged(data?: any) {
     if (!this.feedbackForm) { return; }
     const form = this.feedbackForm;
@@ -104,12 +108,17 @@ export class DishdetailComponent implements OnInit {
   }
 
   onSubmit(){
-    this.dish.comments.push({
+    this.dishCopy.comments.push({
       rating: this.feedbackForm.get('rating').value, 
       comment: this.feedbackForm.get('comment').value, 
       author: this.feedbackForm.get('author').value,
       date: formatDate(Date.now(),'mediumDate','en-US')
       });
+    this.dishService.putDish(this.dishCopy)
+      .subscribe(dish => {
+        this.dish = dish; this.dishCopy = dish;
+      },
+      errmess => {this.dish = null; this.dishCopy = null; this.errMsg = <any>errmess });
 
     this.comment = this.feedbackForm.value;
     console.log(this.comment);
@@ -121,4 +130,6 @@ export class DishdetailComponent implements OnInit {
       date: '',
     });
   }
+
+  
 }
