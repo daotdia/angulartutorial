@@ -33,6 +33,7 @@ import { HttpClientModule } from '@angular/common/http';
 import {baseURL} from './share/baseurl';
 import { HttpModule } from '@angular/http';
 import {ProcessFTTPMsgService} from './services/process-fttpmsg.service';
+import { HighlightDirective } from './directives/highlight.directive';
  
 
 @NgModule({
@@ -45,7 +46,8 @@ import {ProcessFTTPMsgService} from './services/process-fttpmsg.service';
     AboutComponent,
     HomeComponent,
     ContactComponent,
-    LoginComponent
+    LoginComponent,
+    HighlightDirective
   ],
   imports: [
     BrowserModule,
