@@ -6,12 +6,22 @@ import { PromotionService } from '../services/promotion.service';
 import { Leader } from '../share/leader';
 import { LeaderService } from '../services/leader.service';
 import { InheritDefinitionFeature } from '@angular/core/src/render3';
+import {flyInOut, expand} from '../animations/app.animation';
+
 
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
+  host: {
+    '[@flyInOut]': 'true',
+    'style': 'display: block;'
+  },
+  animations: [
+    flyInOut(),
+    expand()
+  ]
 })
 export class HomeComponent implements OnInit {
 
