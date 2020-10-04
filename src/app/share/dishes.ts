@@ -25,7 +25,6 @@ export const DISHES: Dish[] = [
                 date: '2014-09-05T17:57:28.556094Z'
             },
             {
-                
                 rating: 3,
                 comment: 'Eat it, just eat it!',
                 author: 'Michael Jaikishan',

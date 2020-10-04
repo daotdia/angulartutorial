@@ -47,6 +47,10 @@
       <h4>Loading . . . Please Wait</h4>
     </mat-spinner>
   </div>
+  <div fxFlex *ngIf="promotionErrMsg">
+    <h2>Error</h2>
+    <h4>{{promotionErrMsg}}</h4>
+  </div>
 
   <mat-card *ngIf="contact" fxFlex [@expand]>
     <mat-card-header>
@@ -65,5 +69,9 @@
     <mat-spinner>
       <h4>Loading . . . Please Wait</h4>
     </mat-spinner>
+  </div>
+  <div fxFlex *ngIf="leadErrMsg">
+    <h2>Error</h2>
+    <h4>{{leadErrMsg}}</h4>
   </div>
 </div>
